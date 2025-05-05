@@ -10,7 +10,7 @@ COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
 VOLUME [ "/app/lagrange/config" ]
-EXPOSE 8000
+EXPOSE 8080
 
 # 启动应用
 CMD ["python","app.py"]
