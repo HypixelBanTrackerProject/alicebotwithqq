@@ -1,9 +1,12 @@
 from alicebot import Plugin
 import requests
+import os
+
+KPORT = int(os.environ.get('K_PORT')) or 8000
 
 class BanTracker(Plugin):
     async def handle(self):
-        text = requests.get('http://127.0.0.1:8000/wdr').json()['wdr']
+        text = requests.get(f'http://host.docker.internal:{KPORT}/wdr').json()['wdr']
         await self.event.reply(text)
     
     async def rule(self) -> bool:
