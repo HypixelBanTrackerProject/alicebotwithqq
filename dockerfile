@@ -9,7 +9,7 @@ COPY . .
 # 安装依赖
 RUN pip install --no-cache-dir -r requirements.txt
 
-VOLUME [ "/app/lagrange/config" ]
+VOLUME [ "/app/c/config" ]
 EXPOSE 8080
 
 # 启动应用
