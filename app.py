@@ -3,7 +3,7 @@ import shutil
 import os
 import json
 
-if not os.path.exisit('/app/c/config/config.json'):
+if not os.path.exists('/app/c/config/config.json'):
     shutil.copy('/app/c/config.json','/app/c/config/config.json')
 
 ConfigJson = {}
