@@ -6,28 +6,39 @@ import time
 
 KPORT = int(os.environ.get('K_PORT')) or 8000
 
+TIME_RATE = 60
+
 class BanTracker(Plugin):
     def __init_state__(self):
         return {
             #uin / timelatest
         }
+        # return {
+        #     "group":{},
+        #     "uin":{},
+        # }
 
     async def handle(self):
         groupid = None
         verify = False
         senderid = self.event.sender.user_id
+
+        extensionMessage = ''
+
         if isinstance(self.event, GroupMessageEvent):
             groupid = self.event.group_id
 
         if senderid in self.bot.global_state['admin_list']:
             verify = True
+            extensionMessage += '\nDectected admin user, bypassing rate limit'
         if (groupid is not None) and (not verify):
-            if (time.time() - self.state.get(groupid,0)) > 60:
+            if (time.time() - self.state.get(groupid,0)) > TIME_RATE:
                 self.state[groupid] = time.time()
+                extensionMessage += f'\nPay attention! This group has been eanbled rate limit /{TIME_RATE}s'
             else:
                 return
 
-        text = requests.get(f'http://host.docker.internal:{KPORT}/wdr').json()['wdr']
+        text = requests.get(f'http://host.docker.internal:{KPORT}/wdr').json()['wdr'] + extensionMessage
         await self.event.reply(text)
     
     async def rule(self) -> bool:
