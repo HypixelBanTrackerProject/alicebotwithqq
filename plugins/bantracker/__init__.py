@@ -8,10 +8,9 @@ KPORT = int(os.environ.get('K_PORT')) or 8000
 
 class BanTracker(Plugin):
     def __init_state__(self):
-        self.state = {
+        return {
             #uin / timelatest
         }
-        return 0
 
     async def handle(self):
         groupid = None
