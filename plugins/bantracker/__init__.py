@@ -30,11 +30,12 @@ class BanTracker(Plugin):
 
         if senderid in self.bot.global_state['admin_list']:
             verify = True
-            extensionMessage += '\nDectected admin user, bypassing rate limit'
+        if (groupid is not None) and (groupid in self.bot.global_state['admin_group_list']):
+            verify = True
         if (groupid is not None) and (not verify):
             if (time.time() - self.state.get(groupid,0)) > TIME_RATE:
                 self.state[groupid] = time.time()
-                extensionMessage += f'\nPay attention! This group has been eanbled rate limit /{TIME_RATE}s'
+                extensionMessage += f'\nPay attention! This group has been enabled rate limit /{TIME_RATE}s'
             else:
                 return
 
