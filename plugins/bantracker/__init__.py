@@ -30,7 +30,7 @@ class BanTracker(Plugin):
 
         if senderid in self.bot.global_state['admin_list']:
             verify = True
-        if (groupid is not None) and (groupid in self.bot.global_state['admin_group_list']):
+        if (groupid is not None) and (groupid in self.bot.global_state['white_group_list']):
             verify = True
         if (groupid is not None) and (not verify):
             if (time.time() - self.state.get(groupid,0)) > TIME_RATE:
